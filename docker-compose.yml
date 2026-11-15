@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:17
+    container_name: sql-lab-db
+    environment:
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab
+      POSTGRES_DB: shop
+      TZ: UTC
+      PGTZ: UTC
+    # Bound to localhost only: the lab password is weak on purpose.
+    # 5433 because the host's own PostgreSQL already uses 5432.
+    ports:
+      - "127.0.0.1:5433:5432"
+    command: >
+      postgres
+      -c shared_preload_libraries=pg_stat_statements
+      -c pg_stat_statements.track=all
+      -c timezone=UTC
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab -d shop"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:
