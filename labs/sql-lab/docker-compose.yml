@@ -1,3 +1,5 @@
+name: sql-lab  # pinned so the volume (sql-lab_pgdata) does not depend on the folder name
+
 services:
   db:
     image: postgres:17

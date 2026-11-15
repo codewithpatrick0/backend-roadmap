@@ -10,7 +10,7 @@ Los datos son reproducibles (semilla fija) y el "hoy" del dataset está congelad
 ## Puesta en marcha
 
 ```bash
-cd ~/Desktop/labs/sql-lab
+cd ~/Desktop/ROADMAP/labs/sql-lab
 docker compose up -d --wait       # levanta PostgreSQL 17 en localhost:5433
 uv sync                           # instala SQLAlchemy, psycopg y Faker
 uv run python generate.py         # crea el esquema, carga ~256k filas y valida coherencia
