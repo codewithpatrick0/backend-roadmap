@@ -12,7 +12,7 @@ For every topic:
 3. **Review** the lab line by line and write down what AI tends to get wrong → `ai-review.md`.
 4. Close the topic's **issue** with a **pull request** (one branch per topic).
 
-Progress is tracked here and in the [issues](https://github.com/codewithpatrick0/backend-roadmap/issues) / project board.
+Progress is tracked here and in the [issues](https://github.com/codewithpatrick0/backend-roadmap/issues) / [project board](https://github.com/users/codewithpatrick0/projects/1).
 Starting a new topic? Copy [`_template/`](_template/).
 
 ## Progress
