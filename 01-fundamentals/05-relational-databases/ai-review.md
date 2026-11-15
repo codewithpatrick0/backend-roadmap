@@ -13,6 +13,7 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 7 | Varias escrituras relacionadas sin transacción | Datos a medias si algo falla | Ver que estén en el mismo `session.begin()` |
 | 8 | `SELECT *` o traer todas las filas a Python para sumar | Lento y gasta memoria | Pedir `func.sum` + `group_by` en la BD |
 | 9 | `joinedload` sobre colecciones + `LIMIT` | Filas duplicadas o límite roto | Preferir `selectinload` para colecciones |
+| 10 | Columnas sin alias dentro de una subconsulta | Si la columna no existe en la tabla interna, PostgreSQL usa en silencio la de la consulta externa (`WHERE id IN (SELECT id …)` → devuelve todo) | Exigir alias (`o.customer_id`); así falla con "column does not exist" |
 
 ## Prompt que funcionó
 
