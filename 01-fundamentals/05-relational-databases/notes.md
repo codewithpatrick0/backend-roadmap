@@ -24,7 +24,7 @@ Ejercicios del [README del lab](../../labs/sql-lab/README.md#ejercicios-sugerido
 
 - [x] 1. Calentamiento (1–3)
 - [x] 2. JOINs (4–7)
-- [ ] 3. Agregaciones (8–11)
+- [x] 3. Agregaciones (8–11)
 - [ ] 4. Funciones de ventana (12–15)
 - [ ] 5. CTE recursivas (16–18)
 - [ ] 6. Trampas clásicas (19–22)
