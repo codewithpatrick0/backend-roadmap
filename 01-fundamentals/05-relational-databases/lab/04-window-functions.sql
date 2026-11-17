@@ -60,4 +60,18 @@ FROM (
 --     elapsed_time (window functions run after WHERE, so WHERE LAG(...) is not allowed).
 --   - Smallest gap = 37 seconds → likely a double submit. Good data-quality check.
 
--- 15. TODO: margin per product and its percentile within its category.
+-- 15. Margin (price - cost) per product and its percentile within its category.  → 1,500 rows
+-- Quick mode: Claude wrote a query with a hidden bug, I predicted the result and reviewed it.
+-- AI version: PERCENT_RANK() OVER (ORDER BY p.price - p.cost) — no PARTITION BY.
+-- It ranked against the WHOLE catalog: the best Snack got 0.21, Laptops started at 0.86.
+SELECT p.id, p.name, c.name AS category,
+       p.price - p.cost AS margin,
+       ROUND(PERCENT_RANK() OVER (PARTITION BY p.category_id ORDER BY p.price - p.cost)::numeric, 2)
+           AS margin_percentile
+FROM products p
+JOIN categories c ON c.id = p.category_id
+ORDER BY category, margin_percentile DESC;
+-- Lessons:
+--   - PERCENT_RANK = (rank - 1) / (rows in group - 1): 0 = lowest, 1 = highest of the group.
+--   - "Within each X" in the request = PARTITION BY X. Without it the query runs, looks
+--     plausible, and answers a different question. Check: every category must reach 1.00.
