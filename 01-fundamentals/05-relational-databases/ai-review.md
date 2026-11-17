@@ -18,6 +18,8 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 12 | `ROUND(SUM(x))` en vez de `SUM(ROUND(x))` | El total no cuadra con lo cobrado ($8.19 de diferencia) | Redondear donde se cobra; validar contra `payments` |
 | 13 | Filtros de estado en lista negra (`<> 'failed'`) | Estados olvidados o nuevos se cuelan (578 `refunded`) | Preferir lista blanca: `= 'completed'` / `IN (…)` |
 | 14 | `AVG` sobre líneas cuando se pide el promedio por pedido | Mide otra cosa ($183 vs $816) | Agregar en dos niveles: total por pedido, después `AVG` |
+| 15 | Filtrar por una fecha (`paid_at`) y agrupar por otra (`ordered_at`) | Los bordes del rango quedan mal: aparecen días fuera del mes y se pierden otros | Usar la misma columna en `WHERE` y `GROUP BY` |
+| 16 | `GROUP BY` por nombre o email en vez de la PK | Dos personas con el mismo nombre se suman como una | Agrupar por `id` (y agregar las columnas que se muestran) |
 
 ## Prompt que funcionó
 
