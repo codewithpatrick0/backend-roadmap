@@ -39,5 +39,25 @@ ORDER by day ASC;
 --     added an Oct 31 row and dropped Nov 30 orders paid on Dec 1.
 --   - ordered_at = sales (when the customer bought); paid_at = income (when the money came in).
 
--- 14. TODO: days between consecutive orders of each customer (LAG).
+-- 14. Time between consecutive orders of each customer (LAG).  → 45,000 rows
+SELECT t.customer_id, t.id AS order_id, t.customer_fullname,
+t.previous_order_at , t.ordered_at,
+t.ordered_at - t.previous_order_at AS elapsed_time
+FROM (
+    SELECT o.customer_id, o.id, o.ordered_at, LAG(o.ordered_at) OVER (PARTITION BY o.customer_id ORDER BY o.ordered_at) AS previous_order_at,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_fullname
+    FROM orders o
+    JOIN customers c ON c.id = o.customer_id
+    ) t
+    ORDER BY t.customer_id, t.ordered_at
+;
+-- Lessons:
+--   - LAG(x) OVER (PARTITION BY customer ORDER BY date) = value of the previous row in the group.
+--     First order of each customer → NULL (4,142 NULLs = 4,142 customers).
+--   - interval (timestamp - timestamp) instead of whole days (date - date): 1,332 gaps are under
+--     1 day, and ::date would show them as 0 or 1. Same order, two answers: 503 days 15:29 vs 504.
+--   - Subquery on purpose: LAG is written once (DRY) and the outer query can filter by
+--     elapsed_time (window functions run after WHERE, so WHERE LAG(...) is not allowed).
+--   - Smallest gap = 37 seconds → likely a double submit. Good data-quality check.
+
 -- 15. TODO: margin per product and its percentile within its category.

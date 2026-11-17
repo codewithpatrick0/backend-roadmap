@@ -20,6 +20,7 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 14 | `AVG` sobre líneas cuando se pide el promedio por pedido | Mide otra cosa ($183 vs $816) | Agregar en dos niveles: total por pedido, después `AVG` |
 | 15 | Filtrar por una fecha (`paid_at`) y agrupar por otra (`ordered_at`) | Los bordes del rango quedan mal: aparecen días fuera del mes y se pierden otros | Usar la misma columna en `WHERE` y `GROUP BY` |
 | 16 | `GROUP BY` por nombre o email en vez de la PK | Dos personas con el mismo nombre se suman como una | Agrupar por `id` (y agregar las columnas que se muestran) |
+| 17 | Restar fechas sin decidir la unidad (`date - date` vs `timestamp - timestamp`) | Días de calendario ≠ tiempo real: 504 vs 503 días 15 h; con `::date`, 1,332 compras de menos de 1 día se ven como 0 o 1 | Preguntar qué pide el negocio; probar con un caso conocido |
 
 ## Prompt que funcionó
 
