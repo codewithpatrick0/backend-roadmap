@@ -23,6 +23,9 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 17 | Restar fechas sin decidir la unidad (`date - date` vs `timestamp - timestamp`) | Días de calendario ≠ tiempo real: 504 vs 503 días 15 h; con `::date`, 1,332 compras de menos de 1 día se ven como 0 o 1 | Preguntar qué pide el negocio; probar con un caso conocido |
 | 18 | Ventana sin `PARTITION BY` cuando se pide "dentro de cada X" | Compara contra toda la tabla: el mejor snack sale en el percentil 0.21 en vez de 1.00 | Cada grupo debe tener su propio 0 y su propio 1 (`min`/`max` por grupo) |
 | 19 | CTE recursiva con el JOIN invertido (`o.manager_id = e.id`) | Sube por el árbol en vez de bajar: el organigrama devuelve 1 fila en vez de 244, sin error | El `parent_id`/`manager_id` va en el alias nuevo; un árbol completo devuelve tantas filas como la tabla |
+| 20 | Arreglo que funciona "porque hoy los datos son así" (1 solo pago `completed` por pedido) | Ninguna restricción lo garantiza: con pagos en cuotas vuelve el fan-out | Preguntar "¿qué lo garantiza?"; si no hay constraint, agregar antes de unir |
+| 21 | `COUNT(*)` o `COUNT(col)` de la tabla padre después de un `LEFT JOIN` 1:N | Cuenta pedidos, no clientes: 45,858 "clientes" en vez de 5,000 | Revisar la granularidad; contar sin JOIN o con `COUNT(DISTINCT id)` |
+| 22 | `ordered_at::date = …` para "pedidos de ayer" | Depende de la zona horaria de la sesión: 69 (UTC), 63 (Lima), 66 (Tokio) | Rango semiabierto con la zona en el literal: `>= timestamptz '… America/Lima'` |
 
 ## Prompt que funcionó
 
