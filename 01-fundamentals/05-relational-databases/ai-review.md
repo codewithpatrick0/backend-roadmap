@@ -22,6 +22,7 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 16 | `GROUP BY` por nombre o email en vez de la PK | Dos personas con el mismo nombre se suman como una | Agrupar por `id` (y agregar las columnas que se muestran) |
 | 17 | Restar fechas sin decidir la unidad (`date - date` vs `timestamp - timestamp`) | Días de calendario ≠ tiempo real: 504 vs 503 días 15 h; con `::date`, 1,332 compras de menos de 1 día se ven como 0 o 1 | Preguntar qué pide el negocio; probar con un caso conocido |
 | 18 | Ventana sin `PARTITION BY` cuando se pide "dentro de cada X" | Compara contra toda la tabla: el mejor snack sale en el percentil 0.21 en vez de 1.00 | Cada grupo debe tener su propio 0 y su propio 1 (`min`/`max` por grupo) |
+| 19 | CTE recursiva con el JOIN invertido (`o.manager_id = e.id`) | Sube por el árbol en vez de bajar: el organigrama devuelve 1 fila en vez de 244, sin error | El `parent_id`/`manager_id` va en el alias nuevo; un árbol completo devuelve tantas filas como la tabla |
 
 ## Prompt que funcionó
 
