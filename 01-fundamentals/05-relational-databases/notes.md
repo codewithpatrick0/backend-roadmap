@@ -26,7 +26,7 @@ Ejercicios del [README del lab](../../labs/sql-lab/README.md#ejercicios-sugerido
 - [x] 2. JOINs (4–7)
 - [x] 3. Agregaciones (8–11)
 - [x] 4. Funciones de ventana (12–15)
-- [ ] 5. CTE recursivas (16–18)
+- [x] 5. CTE recursivas (16–18)
 - [ ] 6. Trampas clásicas (19–22)
 - [ ] 7. Rendimiento (23–25)
 - [ ] 8. ORM y N+1 (26–31)
