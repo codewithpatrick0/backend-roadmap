@@ -26,6 +26,8 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 | 20 | Arreglo que funciona "porque hoy los datos son así" (1 solo pago `completed` por pedido) | Ninguna restricción lo garantiza: con pagos en cuotas vuelve el fan-out | Preguntar "¿qué lo garantiza?"; si no hay constraint, agregar antes de unir |
 | 21 | `COUNT(*)` o `COUNT(col)` de la tabla padre después de un `LEFT JOIN` 1:N | Cuenta pedidos, no clientes: 45,858 "clientes" en vez de 5,000 | Revisar la granularidad; contar sin JOIN o con `COUNT(DISTINCT id)` |
 | 22 | `ordered_at::date = …` para "pedidos de ayer" | Depende de la zona horaria de la sesión: 69 (UTC), 63 (Lima), 66 (Tokio) | Rango semiabierto con la zona en el literal: `>= timestamptz '… America/Lima'` |
+| 23 | `SUM(DISTINCT monto)` para "arreglar" un fan-out | Elimina valores iguales, no filas repetidas: 18.99 + 18.99 → 18.99; 568 pedidos mal ($24,141.28) | `DISTINCT` solo sobre claves únicas; mejor quitar el JOIN que sobra o agregar antes de unir |
+| 24 | JOINs que no aportan columnas a la respuesta | Cada JOIN 1:N innecesario es un fan-out esperando a ocurrir | Por cada tabla del `FROM`, preguntar "¿qué columna uso de aquí?" |
 
 ## Prompt que funcionó
 
