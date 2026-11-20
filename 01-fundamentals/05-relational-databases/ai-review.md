@@ -32,9 +32,23 @@ Errores típicos que la IA comete en este tema y cómo detectarlos.
 ## Prompt que funcionó
 
 ```text
-<pendiente>
+Write a PostgreSQL query for: <business question>.
+Before the query, state the grain: what does each row represent after every JOIN?
+Rules: alias every column; aggregate child tables before joining them; use NOT EXISTS
+instead of NOT IN; use status allowlists (= 'completed'); half-open date ranges with an
+explicit time zone. After the query, give one known case I can use to check the result.
 ```
 
 ## Errores que encontré en el lab
 
-- [ ] …
+Modo rápido (Claude escribía la consulta con un bug escondido y yo lo buscaba):
+
+- [x] Ventana sin `PARTITION BY`: la vi, pero la llamé "mejora" (ej. 15) → trampa 18.
+- [x] JOIN recursivo invertido: el organigrama devolvía 1 fila (ej. 17) → trampa 19.
+- [x] Fan-out con dos tablas hijas: vi el `failed`, no la multiplicación (ej. 19) → trampas 5 y 20.
+- [x] `NOT IN` con `NULL` devolvía 0 filas (ej. 20) → trampa 4.
+- [x] `COUNT` de la tabla padre después de un `LEFT JOIN` (ej. 21) → trampa 21.
+- [x] `::date` dependía de la zona horaria de la sesión (ej. 22) → trampa 22.
+- [x] `SUM(DISTINCT)` como falso arreglo del fan-out (repaso 4) → trampa 23.
+- [x] "Ya usa `Index Scan`", pero sobre un índice compuesto que no servía (ej. 24).
+- [x] N+1: 366 consultas para 100 pedidos (ej. 27), y sumas en Python en vez de en la base (ej. 31) → trampas 1 y 8.

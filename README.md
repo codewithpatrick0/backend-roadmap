@@ -17,7 +17,7 @@ Starting a new topic? Copy [`_template/`](_template/).
 
 ## Progress
 
-**Done 3 / 29 · In progress 2**
+**Done 5 / 29 · In progress 1**
 
 Priority: ★★★ used daily, asked in junior interviews · ★★ understand it well · ★ know what it is
 and what problem it solves.
@@ -31,7 +31,7 @@ Status: ✅ done · 🟡 in progress · ⬜ pending
 | 02 | Frontend basics: HTML, CSS, JS | ★ | ✅ |
 | 03 | Backend language (Python) | ★★★ | ✅ |
 | 04 | Git and GitHub | ★★★ | 🟡 |
-| 05 | [Relational databases, migrations and the N+1 problem](01-fundamentals/05-relational-databases/) | ★★★ | 🟡 |
+| 05 | [Relational databases, migrations and the N+1 problem](01-fundamentals/05-relational-databases/) | ★★★ | ✅ |
 | 06 | APIs: REST, JSON, OpenAPI | ★★★ | ⬜ |
 | 07 | APIs: GraphQL, gRPC, SOAP | ★ | ⬜ |
 | 08 | Authentication: JWT, cookies/sessions, OAuth | ★★★ | ⬜ |
@@ -55,7 +55,7 @@ Status: ✅ done · 🟡 in progress · ⬜ pending
 |---|---|:-:|:-:|
 | 01 | Testing: unit, integration, functional | ★★★ | ⬜ |
 | 02 | CI/CD | ★★ | ⬜ |
-| 03 | More databases: transactions, ACID, ORMs, normalization, profiling | ★★★ | ⬜ |
+| 03 | [More databases: transactions, ACID, ORMs, normalization, profiling](03-advanced-backend/03-databases-advanced/) | ★★★ | ✅ |
 | 04 | Docker | ★★★ | ⬜ |
 | 05 | LXC, Kubernetes | ★ | ⬜ |
 | 06 | Message brokers: Kafka, RabbitMQ | ★ | ⬜ |
